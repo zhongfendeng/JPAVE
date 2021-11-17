@@ -15,7 +15,7 @@ The code for reviewing paper "JPAVE: A Generation and Classification-based Model
 + move the generated "tagmaster.json", "mepave_attribute_embeddings.json" and "mepave_value_embeddings.json" to the root of this project.
 
 ## Train
-Run the train.py file as follows:
+Run the train.py file to train the model as follows:
 ```bash
 python train.py
 ```
