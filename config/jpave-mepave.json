@@ -1,0 +1,100 @@
+{
+  "data": {
+    "dataset": "mepave",
+    "data_dir": "data",
+    "train_file": "train.json",
+    "val_file": "valid.json",
+    "test_file": "test.json"
+  },
+  "vocabulary": {
+    "dir": "vocab",
+    "vocab_dict": "word.dict",
+    "max_token_vocab": 60000,
+    "label_dict": "label.dict",
+    "attribute_dict": "attribute.dict"
+  },
+  "embedding": {
+    "token": {
+      "dimension": 768,
+      "type": "pretrain",
+      "pretrained_file": "",
+      "dropout": 0.5,
+      "init_type": "uniform"
+    },
+    "label": {
+      "dimension": 768,
+      "type": "pretrain",
+      "pretrained_file": "./mepave_value_embeddings.json",
+      "dropout": 0.5,
+      "init_type": "kaiming_uniform"
+    }
+  },
+  "text_encoder": {
+    "max_length": 46,
+    "RNN": {
+      "bidirectional": true,
+      "num_layers": 1,
+      "type": "GRU",
+      "hidden_dimension": 384,
+      "dropout": 0.1
+    }
+  },
+  "generator": {
+    "max_resp_length": 10,
+    "RNN": {
+      "type": "GRU",
+      "hidden_dimension": 768,
+      "dropout": 0.05
+    },
+    "parallel_decode": true
+  },
+  "model": {
+    "type": "JPAVE",
+    "linear_transformation": {
+      "text_dimension": 768,
+      "node_dimension": 768,
+      "dropout": 0.5
+    },
+    "classifier": {
+      "num_layer": 1,
+      "dropout": 0.5
+    }
+  },
+  "train": {
+    "optimizer": {
+      "type": "Adam",
+      "learning_rate": 0.0001,
+      "lr_decay": 1.00,
+      "lr_patience": 5,
+      "early_stopping": 100
+    },
+    "batch_size": 64,
+    "start_epoch": 0,
+    "end_epoch": 100,
+    "loss": {
+      "classification": "BCEWithLogitsLoss"
+    },
+    "device_setting": {
+      "device": "cuda:0",
+      "visible_device_list": "8",
+      "num_workers": 10
+    },
+    "checkpoint": {
+      "dir": "mepave_JPAVE_checkpoint",
+      "max_number": 10,
+      "save_best": ["Macro_F1", "Micro_F1"]
+    }
+  },
+  "eval": {
+    "batch_size": 16,
+    "threshold": 0.5
+  },
+   "test": {
+    "best_checkpoint": "best_micro_JPAVE",
+    "batch_size": 16
+  },
+  "log": {
+    "level": "info",
+    "filename": "jpave-mepave.log"
+  }
+}
