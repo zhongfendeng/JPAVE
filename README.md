@@ -1,5 +1,5 @@
 # JPAVE
-The code for paper "JPAVE: A Generation and Classification-based Model for Joint Product Attribute Prediction and Value Extraction".
+The code for paper "JPAVE: A Generation and Classification-based Model for Joint Product Attribute Prediction and Value Extraction", which will appear in the proceedings of 2023 IEEE International Conference on Big Data.
 
 ## Requirements
 + Python >= 3.6
